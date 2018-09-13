@@ -1,5 +1,6 @@
 from django.http import HttpResponse, Http404, JsonResponse, HttpResponseRedirect
 from django.template import loader
+from utils import *
 from .models import Invoice
 import json
 from django.core import serializers
@@ -22,10 +23,6 @@ def index(request):
         return JsonResponse(response)
 
 
-def res_data(obj):
-    return obj['fields']
-
-
 def create(request):
     post_data = json.loads(request.body)
     invoice = Invoice(
@@ -42,5 +39,11 @@ def create(request):
         remark=post_data['remark']
     )
     invoice.save()
-    return JsonResponse(post_data, safe=False)
+    invoices = Invoice.objects.all()
+    invoice = query_set_to_dir(invoices)[-1]
+    response = {
+        'data': invoice,
+        'status': 'success'
+    }
+    return JsonResponse(response)
 
