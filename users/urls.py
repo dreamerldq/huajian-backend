@@ -6,4 +6,6 @@ urlpatterns = [
     path('delete_user', views.delete_user),
     path('edit_user', views.edit_user),
     path('get_user', views.get_user),
+    path('checked_user', views.checked_login),
+
 ]
