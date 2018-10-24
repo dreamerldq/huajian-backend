@@ -4,6 +4,7 @@ from django.core import serializers
 
 
 def res_data(obj):
+    obj['fields']['id'] = obj['pk']
     return obj['fields']
 
 
